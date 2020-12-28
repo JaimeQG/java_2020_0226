@@ -18,7 +18,7 @@ public class App {
 		final String SQL_SELECT = "SELECT * FROM usuarios";
 		final String SQL_SELECT_ID = "SELECT * FROM usuarios WHERE id = ?";
 
-		final String SQL_INSERT = "INSERT INTO `supermercado`.`usuarios` (email, password) VALUES (?, ?)";
+		final String SQL_INSERT = "INSERT INTO usuarios (email, password) VALUES (?, ?)";
 		final String SQL_UPDATE = "UPDATE usuarios SET email = ?, password = ? WHERE id = ?";
 		final String SQL_DELETE = "DELETE FROM usuarios WHERE id = ?";
 
@@ -50,7 +50,7 @@ public class App {
 
 		System.out.println(SQL_SELECT_ID);
 
-		while (rs.next()) {
+		if (rs.next()) {
 			System.out.println(rs.getLong("id") + ", " + rs.getString("email") + ", " + rs.getString("password"));
 		}
 
