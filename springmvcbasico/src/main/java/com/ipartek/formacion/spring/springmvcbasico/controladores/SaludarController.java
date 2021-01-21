@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SaludarController {
 	@GetMapping("/saludo")
-	public String saludo(@RequestParam(required = false, defaultValue = "Mundo") String nombre, Model modelo) {
+	public String saludo(@RequestParam(required = false, defaultValue = "Pepe") String nombre, Model modelo) {
 		modelo.addAttribute("nombre", nombre);
 		return "saludo"; // plantilla
 	}
