@@ -10,4 +10,6 @@ public interface Dao<T> {
 	T modificar(T objeto);
 
 	void borrar(Long id);
+
+	int numeroRegistros();
 }

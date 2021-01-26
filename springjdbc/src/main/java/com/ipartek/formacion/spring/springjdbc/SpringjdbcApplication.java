@@ -23,21 +23,28 @@ public class SpringjdbcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		Cliente cliente = null;
+
 		try {
-			dao.agregar(new Cliente(null, "Nuevo", "Nuevez Novisimez", "13243545Z", LocalDate.now()));
+			cliente = dao.agregar(new Cliente(null, "Nuevo", "Nuevez Novisimez", "13243545Z", LocalDate.now()));
+			System.out.println("Creado cliente: " + cliente);
 
 			dao.modificar(new Cliente(2L, "Juan", "Juanes", "87654321A", LocalDate.now()));
 
 			dao.borrar(7L);
 
-			for (Cliente cliente : dao.obtenerTodos()) {
-				System.out.println(cliente);
+			for (Cliente clientes : dao.obtenerTodos()) {
+				System.out.println(clientes);
 			}
 
 			System.out.println(dao.obtenerPorId(1L));
+
+			System.out.println("Numero de Registros en la BBDD: " + dao.numeroRegistros());
+
 		} catch (DataAccessException e) {
 			System.out.println("Error de acceso a datos");
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
