@@ -1,14 +1,17 @@
 package com.ipartek.formacion.spring.springjdbc.repositorios;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.spring.springjdbc.entidades.Cliente;
@@ -41,21 +44,31 @@ public class ClienteMySqlDao implements Dao<Cliente> {
 	@Override
 	public Cliente agregar(Cliente cliente) {
 
-		// simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+//		jdbcTemplate.update("INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?, ?, ?, ?)",
+//		new Object[] { cliente.getNombre(), cliente.getApellidos(), cliente.getCif(),
+//				cliente.getFechaNacimiento() });
 
-		// jdbcTemplate.update(
-		// "INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?,
-		// ?, ?, ?)", new Object[] {
-		// cliente.getNombre(), cliente.getApellidos(), cliente.getCif(),
-		// cliente.getFechaNacimiento() },
-		// keyHolder);
+//		SqlParameterSource parameters = new BeanPropertySqlParameterSource(cliente);
 
-		SqlParameterSource parameters = new BeanPropertySqlParameterSource(cliente);
+//		Number id = jdbcInsert.executeAndReturnKey(parameters);
 
-		Number id = jdbcInsert.executeAndReturnKey(parameters);
+//		System.out.println("id " + id.longValue());
+//		cliente.setId(id.longValue());
 
-		System.out.println("id " + id.longValue());
-		cliente.setId(id.longValue());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement(
+					"INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, cliente.getNombre());
+			ps.setString(2, cliente.getApellidos());
+			ps.setString(3, cliente.getCif());
+			ps.setObject(4, cliente.getFechaNacimiento());
+			return ps;
+		}, keyHolder);
+
+		cliente.setId(keyHolder.getKey().longValue());
 
 		return cliente;
 	}
