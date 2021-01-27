@@ -21,11 +21,13 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 	static final private String NOMBRE_POJO = "Medicamento";
 
 	static final private int MIN_LENGTH = 3;
-	static final private int MAX_LENGTH = 50;
+	static final private int MAX_LENGTH_NOMBRE = 50;
 
-	static final protected String OP_LISTAR = "1";
-	static final protected String OP_CREAR = "2";
-	static final protected String OP_ELIMINAR = "3";
+	static final private int MAX_LENGTH_REFERENCIA = 10;
+
+	static final protected String OP_CREAR = "1";
+	static final protected String OP_ELIMINAR = "2";
+	static final protected String OP_LISTAR = "3";
 	static final protected String OP_SALIR = "s";
 
 	private static String opcion = "";
@@ -49,9 +51,6 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 			opcion = sc.nextLine();
 
 			switch (opcion) {
-			case OP_LISTAR:
-				listar();
-				break;
 
 			case OP_CREAR:
 				crear();
@@ -61,17 +60,22 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 				eliminar();
 				break;
 
+			case OP_LISTAR:
+				listar();
+				break;
+
 			case OP_SALIR:
 				System.out.println("Adios, vuelve pronto.....");
 				break;
 
 			default:
-				System.out.println("* Opcion no permitida");
+				System.out.println("*** Opcion no permitida");
 				break;
 			}
 
-		} while (!OP_SALIR.equalsIgnoreCase(opcion));
+		} while (!OP_SALIR.equals(opcion));
 
+		sc.close();
 	}
 
 	/**
@@ -129,12 +133,12 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 				}
 			} while (isError);
 
-			medicamentoEliminar = dao.obtenerPorId(id); // recuperamos el libro a suprimir dentro del ArrayList
-
-			if (medicamentoEliminar == null) {
-				System.out.println("*** Lo sentimos pero no existe ese medicamento");
-			} else {
+			try {
+				medicamentoEliminar = dao.obtenerPorId(id); // recuperamos el Medicamento a suprimir
+				// si la linea de arriba lanza excepcion, estas de abajo nunca se ejecutaran
 				flag = false;
+			} catch (Exception e) {
+				System.out.println("*** Lo sentimos pero no existe ese medicamento");
 			}
 
 		} while (flag);
@@ -158,8 +162,10 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 						dao.borrar(id);
 						flag = false;
 						System.out.println("-------------------------------------");
-						System.out.printf("Hemos dado de baja el medicamento: %s (%s) \n",
-								medicamentoEliminar.getReferencia(), medicamentoEliminar.getNombre());
+						System.out.println("Hemos dado de baja el medicamento:");
+						System.out.println(String.format("[%s] (%s) %-17s  ........... [%.2f€]",
+								medicamentoEliminar.getId(), medicamentoEliminar.getReferencia(),
+								medicamentoEliminar.getNombre(), medicamentoEliminar.getPrecio()));
 						System.out.println("-------------------------------------");
 
 					} catch (Exception e) {
@@ -184,13 +190,13 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 
 		// pedimos datos del medicamento por consola
 		try {
-			referencia = validarString("referencia");
+			referencia = validarString("referencia", MAX_LENGTH_REFERENCIA); // Referencia
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		try {
-			nombre = validarString("nombre");
+			nombre = validarString("nombre", MAX_LENGTH_NOMBRE); // Nombre
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -202,7 +208,7 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 
 				if (precioString.matches("\\d+\\.\\d\\d")) {
 					precio = new BigDecimal(precioString);
-					if (precio == null || precio.compareTo(BigDecimal.ZERO) < 0) {
+					if (precio == null || precio.compareTo(new BigDecimal(0)) <= 0) {
 						System.out.println("** error: el precio tiene que ser mayor que 0");
 					} else {
 						isError = false;
@@ -246,9 +252,9 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 	private static void pintarMenu(final String nombrePojo) {
 
 		System.out.println("******************************");
-		System.out.println(" " + OP_LISTAR + ".- Listar todos los " + nombrePojo);
 		System.out.println(" " + OP_CREAR + ".- Crear un " + nombrePojo);
 		System.out.println(" " + OP_ELIMINAR + ".- Dar de baja un " + nombrePojo);
+		System.out.println(" " + OP_LISTAR + ".- Listar todos los " + nombrePojo + "s");
 		System.out.println(" ");
 		System.out.println(" " + OP_SALIR + " - Salir");
 		System.out.println("******************************");
@@ -260,7 +266,7 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 	 * @param nombre de la propiedad de tipo String
 	 * @return valor de tipo String cuya longitud sea > 2 y < 50 caracteres
 	 */
-	private static String validarString(String propiedad) throws Exception {
+	private static String validarString(String propiedad, int longitudMaxima) throws Exception {
 
 		boolean isError = true;
 		String nombre = "";
@@ -269,11 +275,11 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 		do {
 			System.out.println("Introduzca el " + propiedad + " del " + NOMBRE_POJO + " : \n");
 			nombre = sc.nextLine();
-			if (nombre.trim().length() < MIN_LENGTH || nombre.trim().length() > MAX_LENGTH
+			if (nombre.trim().length() < MIN_LENGTH || nombre.trim().length() > longitudMaxima
 					|| !nombre.matches("\\p{Lu}[ \\p{L}\\d+]*")) {
 				System.out
 						.println("**error, el " + propiedad + " debe tener más de " + MIN_LENGTH + " letras y menos de "
-								+ MAX_LENGTH + ". '" + nombre + "' tiene " + nombre.length() + " caracter(es) \n");
+								+ longitudMaxima + ". '" + nombre + "' tiene " + nombre.length() + " caracter(es) \n");
 			} else {
 				isError = false;
 			}
