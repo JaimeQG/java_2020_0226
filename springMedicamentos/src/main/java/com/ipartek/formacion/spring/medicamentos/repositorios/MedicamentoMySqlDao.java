@@ -42,20 +42,10 @@ public class MedicamentoMySqlDao implements Dao<Medicamento> {
 	@Override
 	public Medicamento agregar(Medicamento medicamento) {
 
-		// simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-
-		// jdbcTemplate.update(
-		// "INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?,
-		// ?, ?, ?)", new Object[] {
-		// cliente.getNombre(), cliente.getApellidos(), cliente.getCif(),
-		// cliente.getFechaNacimiento() },
-		// keyHolder);
-
 		SqlParameterSource parameters = new BeanPropertySqlParameterSource(medicamento);
 
 		Number id = jdbcInsert.executeAndReturnKey(parameters);
 
-		System.out.println("id " + id.longValue());
 		medicamento.setId(id.longValue());
 
 		return medicamento;
@@ -75,11 +65,28 @@ public class MedicamentoMySqlDao implements Dao<Medicamento> {
 	}
 
 	@Override
-	public int numeroRegistros() {
-		String sql = "SELECT count(id) FROM medicamentos";
+	public int numeroRegistros(String columna) {
+		String sql = "SELECT count(" + columna + ") FROM medicamentos";
 
 		int total = jdbcTemplate.queryForObject(sql, Integer.class);
 		return total;
+	}
+
+	@Override
+	public boolean valorExiste(String columna, String valor) {
+
+		boolean existe = false;
+
+		String sql = "SELECT count(" + columna + ") FROM medicamentos WHERE ucase(" + columna + ") = ucase('" + valor
+				+ "')";
+
+		int total = jdbcTemplate.queryForObject(sql, Integer.class);
+
+		if (total > 0) {
+			existe = true;
+		}
+
+		return existe;
 	}
 
 }

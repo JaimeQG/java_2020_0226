@@ -27,6 +27,8 @@ public class ClienteJpaDao implements Dao<Cliente> {
 
 			em.getTransaction().begin();
 			Iterable<Cliente> clientes = em.createQuery("from Cliente", Cliente.class).getResultList();
+			// "from Medicamento m where m.referencia = '12345678'"
+
 			em.getTransaction().commit();
 
 			em.close();

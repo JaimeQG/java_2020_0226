@@ -11,5 +11,7 @@ public interface Dao<T> {
 
 	void borrar(Long id);
 
-	int numeroRegistros();
+	int numeroRegistros(String string);
+
+	boolean valorExiste(String columna, String valor);
 }

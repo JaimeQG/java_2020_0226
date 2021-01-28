@@ -97,7 +97,7 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 		}
 
 		System.out.println("----------------------------------------");
-		System.out.println("Número TOTAL de medicamentos en la BBDD: " + dao.numeroRegistros());
+		System.out.println("Número TOTAL de medicamentos en la BBDD: " + dao.numeroRegistros("id"));
 		System.out.println("----------------------------------------");
 		System.out.println("\n");
 
@@ -189,17 +189,38 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 		boolean isError = true;
 
 		// pedimos datos del medicamento por consola
-		try {
-			referencia = validarString("referencia", MAX_LENGTH_REFERENCIA); // Referencia
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		do {
+			try {
+				referencia = validarString("referencia", MAX_LENGTH_REFERENCIA); // Referencia
+			} catch (Exception e) {
+				e.getMessage();
+			}
+
+			// Comprobamos si hay un Medicamento con la misma Referencia en la BBDD
+			boolean existe = false;
+
+			try {
+				existe = dao.valorExiste("referencia", referencia.toUpperCase());
+
+				if (existe) {
+					System.out.println(
+							"*** error: Ya hay en la BBBD un medicamento con la referencia (" + referencia + ")");
+				} else {
+					isError = false;
+				}
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+		} while (isError);
 
 		try {
 			nombre = validarString("nombre", MAX_LENGTH_NOMBRE); // Nombre
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
+
+		isError = true;
 
 		do {
 			try {
@@ -273,15 +294,21 @@ public class SpringMedicamentosApplication implements CommandLineRunner {
 
 		// Repetir hasta que no haya error
 		do {
-			System.out.println("Introduzca el " + propiedad + " del " + NOMBRE_POJO + " : \n");
-			nombre = sc.nextLine();
-			if (nombre.trim().length() < MIN_LENGTH || nombre.trim().length() > longitudMaxima
-					|| !nombre.matches("\\p{Lu}[ \\p{L}\\d+]*")) {
-				System.out
-						.println("**error, el " + propiedad + " debe tener más de " + MIN_LENGTH + " letras y menos de "
-								+ longitudMaxima + ". '" + nombre + "' tiene " + nombre.length() + " caracter(es) \n");
-			} else {
-				isError = false;
+			try {
+				System.out.println("Introduzca el " + propiedad + " del " + NOMBRE_POJO + " : \n");
+				nombre = sc.nextLine();
+
+				// si la linea de arriba lanza excepcion, estas de abajo nunca se ejecutaran
+				if (nombre.trim().length() < MIN_LENGTH || nombre.trim().length() > longitudMaxima
+						|| !nombre.matches("\\p{Lu}[ \\p{L}\\d+]*")) {
+					System.out.println("**error, el " + propiedad + " debe tener más de " + MIN_LENGTH
+							+ " letras y menos de " + longitudMaxima + ". '" + nombre + "' tiene " + nombre.length()
+							+ " caracter(es) \n");
+				} else {
+					isError = false;
+				}
+			} catch (Exception e) {
+				throw new Exception("*** error: No es un valor correcto");
 			}
 		} while (isError);
 
