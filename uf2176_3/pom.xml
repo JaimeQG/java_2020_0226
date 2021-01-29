@@ -11,8 +11,8 @@
 	<groupId>com.ipartek.formacion.spring</groupId>
 	<artifactId>uf2176_3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>uf2176_3</name>
-	<description>UF2176 con diferentes implementaciones de Dao</description>
+	<name>uf2177_1</name>
+	<description>UF2177 con diferentes implementaciones de Dao</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -40,6 +40,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 	</dependencies>
 
