@@ -18,7 +18,7 @@ public class SorteoDaoMySql implements Dao<Sorteo> {
 	private static final String PASS = "";
 
 	private static final String SQL_SELECT = "SELECT * FROM sorteos";
-	private static final String SQL_SELECT_ID = "SELECT * FROM medicamentos WHERE id = ?";
+	private static final String SQL_SELECT_ID = "SELECT * FROM sorteos WHERE id = ?";
 	private static final String SQL_COUNT_ID = "SELECT COUNT(id) FROM sorteos";
 
 	private static final String SQL_INSERT = "INSERT INTO sorteos (numero1, numero2, numero3, numero4, numero5, estrella1, estrella2, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
