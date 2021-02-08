@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: ReseniaREST
+  description: REST de Resenia del Ejercicio MF0226_3
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/'
+    description: Servidor de Spring Boot
+tags:
+  - name: resenia
+    description: Reseñas de los cursos
+  - name: alumno
+    description: Alumno que crea la reseña del curso
+  - name: curso
+    description: Curso sobre el que el Alumno crea la Reseña
+  - name: profesor
+    description: Profesor del curso sobre el que el Alumno crea la Reseña
+  
+paths:
+  '/cursos':
+    get:
+      tags:
+        - curso
+      summary: Ver todos los cursos con su profesor
+      description: ""
+      operationId: getAll
+      
+      responses:   
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Curso' 
+  '/cursos/{codigo}':
+    get:
+      tags:
+        - curso
+      summary: Detalle de un curso junto con las reseñas de los alumnos
+      operationId: getById
+      
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            
+      responses:
+        '200':
+          description: Obtener un curso por id con todas sus reseñas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '404':
+          description: No encontrado
+          
+  '/resenias/{codigo}':
+      put:
+        tags:
+         - resenia
+        summary: Modificar una Reseña por id
+        operationId: update
+        parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: "body"
+          name: "body"
+          description: "Objeto Resenia que se modifica en la BB.DD"
+          required: true
+          schema:
+            $ref: "#/components/schemas/Resenia" 
+        requestBody:
+           content:
+             application/json:
+                schema:
+                  $ref: '#/components/schemas/Resenia'
+        responses:
+          '400':
+             description: Petición incorrecta
+          '404':
+             description: No existe Reseña
+          '200':
+             description: Modificado
+             content:
+                application/json:
+                 schema:
+                   $ref: '#/components/schemas/Resenia'
+        
+      delete:
+       tags:
+         - resenia
+       summary: Borrar reseña por id
+       operationId: delete
+       parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+       responses:
+        '204':
+          description: Sin contenido
+        '404':
+          description: No encontrado
+          
+  '/resenias':
+       post:
+         tags:
+           - resenia
+         summary: Crear una nueva Reseña
+         operationId: insert
+         parameters:
+         - in: "body"
+           name: "body"
+           description: "Objeto Resenia que se crea en la BB.DD"
+           required: true
+           schema:
+             $ref: "#/components/schemas/Resenia"    
+         requestBody:
+           content:
+             application/json:
+                schema:
+                  $ref: '#/components/schemas/Resenia'
+         responses:
+           '400':
+              description: Petición incorrecta
+           '201':
+              description: Creado
+              content:
+                 application/json:
+                   schema:
+                     $ref: '#/components/schemas/Resenia'  
+   
+components:
+  requestBodies:    
+    Resenia:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Resenia"
+      description: Reseña que crea un Alumno sobre un Curso que realiza
+      required: true
+  schemas:
+    Alumno:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
+    
+    Curso:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        identificador:
+          type: string
+        nHoras:
+          type: integer
+          format: int64
+     
+    Profesor:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
+      
+    Resenia:
+      type: object
+      required:
+        - fecha
+        - comentario
+      properties:
+        codigo:
+          type: integer
+          format: int64 
+        comentario:
+          type: string
+        fecha:
+          type: string
+        curso:
+             $ref: "#/components/schemas/Curso"
+        alumno:
+             $ref: "#/components/schemas/Alumno"
