@@ -30,6 +30,12 @@ public class Categoria {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
+	// @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
 	@OneToMany(mappedBy = "categoria") // , fetch = FetchType.LAZY)
 	private final Set<Producto> productos = new HashSet<>();
+
+	// Generado por Loombok
+	public Set<Producto> getProductos() {
+		return productos;
+	}
 }
