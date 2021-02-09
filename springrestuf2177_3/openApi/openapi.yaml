@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: LibreriaREST
+  description: REST del Ejercicio UF2177_3
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/libros'
+    description: Servidor de Spring Boot
+tags:
+  - name: resenia
+    description: Reseñas de los libros
+  - name: libro
+    description: Libro sobre el que el se crea la Reseña
+  - name: autor
+    description: Autor del libro sobre el que se crea la Reseña
+  
+paths:
+  '':
+    post:
+         tags:
+           - resenia
+         summary: Crear una nueva Reseña
+         operationId: insert
+         parameters:
+         - in: "body"
+           name: "body"
+           description: "Objeto Resenia que se crea en la BB.DD"
+           required: true
+           schema:
+             $ref: "#/components/schemas/Resenia"    
+         requestBody:
+           content:
+             application/json:
+                schema:
+                  $ref: '#/components/schemas/Resenia'
+         responses:
+           '400':
+              description: Petición incorrecta
+           '201':
+              description: Creado
+              content:
+                 application/json:
+                   schema:
+                     $ref: '#/components/schemas/Resenia'
+
+    get:
+      tags:
+        - libro
+      summary: Ver todos los libros con su autor
+      description: ""
+      operationId: getAll
+      
+      responses:   
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Libro' 
+                  
+  '/{id}/resenas':
+    get:
+      tags:
+        - libro
+      summary: Detalle de un libro junto con las reseñas
+      operationId: getById
+      
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            
+      responses:
+        '200':
+          description: Obtener un curso por id con todas sus reseñas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+        '404':
+          description: No encontrado
+   
+components:
+  requestBodies:    
+    Resenia:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Resenia"
+      description: Reseña que se crea sobre un libro
+      required: true
+  schemas:
+   
+    Libro:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        autores_id:
+          type: integer
+          format: int64
+       
+    Resenia:
+      type: object
+      required:
+        - texto
+        - libros_id
+      properties:
+        id:
+          type: integer
+          format: int64 
+        texto:
+          type: string
+        libros_id:
+          type: integer
+          format: int64 

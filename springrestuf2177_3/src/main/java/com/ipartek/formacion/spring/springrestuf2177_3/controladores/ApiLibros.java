@@ -51,6 +51,7 @@ public class ApiLibros {
 		Libro libro = daoLibro.buscarPorIdConResenias(id);
 
 		if (libro == null) {
+			LOGGER.log(Level.WARNING, "Libro id " + id + " no existe en la Tabla libros");
 			return new ResponseEntity<Libro>(HttpStatus.NOT_FOUND);
 		}
 
