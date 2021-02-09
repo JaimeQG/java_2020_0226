@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -30,7 +29,6 @@ public class Libro {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "libro")
 	private final Set<Resenia> resenias = new HashSet<>();
 
 }
