@@ -5,5 +5,5 @@ import com.ipartek.formacion.spring.springMF0226_3.entidades.Curso;
 public interface CursoDao extends Dao<Curso> {
 	Curso obtenerCursoConProfesor(Long id);
 
-	Curso obtenerCursoConResenias(Long id);
+	Curso buscarPorIdConResenias(Long id);
 }

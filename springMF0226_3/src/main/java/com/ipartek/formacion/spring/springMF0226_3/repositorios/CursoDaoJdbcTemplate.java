@@ -40,21 +40,21 @@ public class CursoDaoJdbcTemplate implements CursoDao {
 
 	@Override
 	public Curso insertar(Curso curso) {
-		return null;
+		throw new RuntimeException("INSERTAR POR IMPLEMENTAR");
 	}
 
 	@Override
 	public Curso modificar(Curso curso) {
-		return null;
+		throw new RuntimeException("MODIFICAR POR IMPLEMENTAR");
 	}
 
 	@Override
 	public void borrar(Long id) {
-
+		throw new RuntimeException("BORRAR POR IMPLEMENTAR");
 	}
 
 	@Override
-	public Curso obtenerCursoConResenias(Long id) {
+	public Curso buscarPorIdConResenias(Long id) {
 		Curso curso = obtenerCursoConProfesor(id);
 
 		if (curso == null) {

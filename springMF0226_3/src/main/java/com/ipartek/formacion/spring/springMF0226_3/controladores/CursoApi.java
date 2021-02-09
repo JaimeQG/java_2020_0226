@@ -30,7 +30,7 @@ public class CursoApi {
 
 	@GetMapping("{id}")
 	public ResponseEntity<Curso> getPorId(@PathVariable Long id) {
-		Curso curso = dao.obtenerCursoConResenias(id);
+		Curso curso = dao.buscarPorIdConResenias(id);
 
 		if (curso == null) {
 			return new ResponseEntity<Curso>(HttpStatus.NOT_FOUND);
