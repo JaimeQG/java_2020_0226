@@ -24,23 +24,11 @@ public class ReseniaDaoJdbcTemplate implements Dao<Resenia> {
 
 	@Override
 	public Iterable<Resenia> obtenerTodos() {
-		// return jdbc.query("SELECT r.codigo, r.comentario, r.fecha, r.curso_codigo
-		// FROM resenia r",
-		// new BeanPropertyRowMapper<Resenia>(Resenia.class));
+
 		Collection<Resenia> resenias = jdbc.query("SELECT * FROM resenia r  \r\n",
-				// "SELECT r.codigo, r.comentario, r.fecha, r.curso_codigo, r.alumno_codigo
-				// \r\n" + "FROM resenia r \r\n",
 				(rs, rowNum) -> new Resenia(rs.getInt("r.codigo"), rs.getString("r.comentario"),
 						new java.sql.Date(rs.getDate("r.fecha").getTime()).toLocalDate(),
 						new Curso(rs.getInt("r.curso_codigo")), new Alumno(rs.getInt("r.alumno_codigo"))));
-
-		// "SELECT r.codigo, r.comentario, r.fecha, r.curso_codigo, r.alumno_codigo
-		// \r\n" + "FROM resenia r \r\n",
-		// (rs, rowNum) -> new Resenia(rs.getInt("r.codigo"),
-		// rs.getString("r.comentario"),
-		// new java.sql.Date(rs.getDate("r.fecha").getTime()).toLocalDate(),
-		// rs.getInt("r.curso_codigo"),
-		// rs.getInt("r.alumno_codigo")));
 
 		return resenias;
 	}

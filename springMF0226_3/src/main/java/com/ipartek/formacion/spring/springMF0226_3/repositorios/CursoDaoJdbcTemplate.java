@@ -20,10 +20,6 @@ public class CursoDaoJdbcTemplate implements CursoDao {
 
 	@Override
 	public Iterable<Curso> obtenerTodos() {
-		// return jdbc.query("SELECT c.codigo, c.nombre, c.identificador, c.nHoras,
-		// c.profesor_codigo FROM curso c",
-		// new BeanPropertyRowMapper<Curso>(Curso.class));
-
 		return jdbc.query(
 				"SELECT c.codigo, c.nombre, c.identificador, c.nHoras, p.codigo, p.nombre, p.apellidos \r\n"
 						+ "FROM curso c\r\n" + "LEFT JOIN profesor p ON c.profesor_codigo = p.codigo\r\n",
@@ -54,18 +50,30 @@ public class CursoDaoJdbcTemplate implements CursoDao {
 	}
 
 	@Override
+	public Curso obtenerCursoConProfesor(Long id) {
+		Collection<Curso> cursos = jdbc
+				.query("SELECT c.codigo, c.nombre, c.identificador, c.nHoras, p.codigo, p.nombre, p.apellidos \r\n"
+						+ "FROM curso c \r\n" + "LEFT JOIN profesor p ON c.profesor_codigo = p.codigo \r\n"
+						+ "WHERE c.codigo = ?",
+						(rs, rowNum) -> new Curso(rs.getInt("c.codigo"), rs.getString("c.nombre"),
+								rs.getString("c.identificador"), rs.getInt("c.nHoras"), new Profesor(
+										rs.getInt("p.codigo"), rs.getString("p.nombre"), rs.getString("p.apellidos"))),
+						id);
+
+		Curso curso = null;
+		if (!cursos.isEmpty()) {
+			curso = cursos.iterator().next();
+		}
+		return curso;
+	}
+
+	@Override
 	public Curso buscarPorIdConResenias(Long id) {
 		Curso curso = obtenerCursoConProfesor(id);
 
 		if (curso == null) {
 			return curso;
 		}
-		// Curso curso = obtenerPorId(id);
-
-		// Collection<Resenia> resenias = jdbc.query(
-		// "SELECT r.codigo, r.comentario, r.fecha, r.alumno_codigo, r.curso_codigo FROM
-		// resenia r LEFT JOIN curso c ON c.codigo = r.curso_codigo WHERE c.codigo = ?",
-		// new BeanPropertyRowMapper<Resenia>(Resenia.class), id);
 
 		Collection<Resenia> resenias = jdbc.query(
 				"SELECT r.codigo, r.comentario, r.fecha, c.codigo, c.nombre, c.identificador, c.nHoras, a.codigo, a.nombre, a.apellidos  \r\n"
@@ -84,24 +92,6 @@ public class CursoDaoJdbcTemplate implements CursoDao {
 		}
 
 		curso.getResenias().addAll(resenias);
-		return curso;
-	}
-
-	@Override
-	public Curso obtenerCursoConProfesor(Long id) {
-		Collection<Curso> cursos = jdbc
-				.query("SELECT c.codigo, c.nombre, c.identificador, c.nHoras, p.codigo, p.nombre, p.apellidos \r\n"
-						+ "FROM curso c \r\n" + "LEFT JOIN profesor p ON c.profesor_codigo = p.codigo \r\n"
-						+ "WHERE c.codigo = ?",
-						(rs, rowNum) -> new Curso(rs.getInt("c.codigo"), rs.getString("c.nombre"),
-								rs.getString("c.identificador"), rs.getInt("c.nHoras"), new Profesor(
-										rs.getInt("p.codigo"), rs.getString("p.nombre"), rs.getString("p.apellidos"))),
-						id);
-
-		Curso curso = null;
-		if (!cursos.isEmpty()) {
-			curso = cursos.iterator().next();
-		}
 		return curso;
 	}
 

@@ -66,7 +66,6 @@ public class ReseniaApi {
 			reseniaExiste = dao.obtenerPorId(id);
 		} catch (Exception e) {
 			LOGGER.log(Level.WARNING, "resenia id " + id + " no existe en la Tabla resenia");
-			// e.printStackTrace();
 		}
 
 		if (reseniaExiste == null) {
