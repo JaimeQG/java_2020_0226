@@ -1,6 +1,7 @@
 package com.ipartek.formacion.usuarioservlets.accesodatos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,9 @@ import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 public class UsuarioDaoMySql implements UsuarioDao {
 
 	private static final String SQL_SELECT = "SELECT u.id u_id, email, password, r.id r_id, nombre r_nombre, descripcion r_descripcion FROM usuarios u JOIN roles r ON u.roles_id = r.id";
+	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE email = ?";
+	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id = ?";
+
 	private DataSource dataSource = null;
 
 	public UsuarioDaoMySql() {
@@ -74,14 +78,44 @@ public class UsuarioDaoMySql implements UsuarioDao {
 
 	@Override
 	public void borrar(Long id) {
-		// TODO Auto-generated method stub
-		UsuarioDao.super.borrar(id);
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(SQL_DELETE);) {
+
+			pst.setLong(1, id);
+
+			if (pst.executeUpdate() != 1) {
+				throw new AccesoDatosException("No se ha encontrado el registro a borrar: " + id);
+			}
+
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido borrar el usuario: " + id);
+		} catch (Exception e) {
+			throw new AccesoDatosException("ERROR NO ESPERADO: No se ha podido borrar el usuario: " + id);
+		}
 	}
 
 	@Override
 	public Usuario obtenerPorEmail(String email) {
-		// TODO Auto-generated method stub
-		return UsuarioDao.super.obtenerPorEmail(email);
+		try (Connection con = dataSource.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_SELECT_EMAIL);) {
+
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+
+			Usuario usuario = null;
+			Rol rol;
+
+			if (rs.next()) {
+				rol = new Rol(rs.getLong("r_id"), rs.getString("r_nombre"), rs.getString("r_descripcion"));
+				usuario = new Usuario(rs.getLong("u_id"), rs.getString("email"), rs.getString("password"), rol);
+			}
+
+			return usuario;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido obtener el usuario cuyo email es: " + email);
+		} catch (Exception e) {
+			throw new AccesoDatosException(
+					"ERROR NO ESPERADO: No se ha podido obtener el usuario cuyo email es: " + email);
+		}
 	}
 
 }
