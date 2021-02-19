@@ -36,9 +36,6 @@ public class PrincipalServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/vistas/productos.jsp").forward(request, response);
 
-		// KISS: Keep It Simple Stupid
-		// DRY: Don't Repeat Yourself
-		// https://tantacom.com/principios-diseno-software-kiss-dry-solid/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

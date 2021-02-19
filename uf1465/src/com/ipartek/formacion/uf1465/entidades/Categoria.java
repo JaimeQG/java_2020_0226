@@ -10,8 +10,8 @@ public class Categoria {
 
 	public Categoria(Long id, String nombre) {
 		super();
-		this.id = id;
-		this.nombre = nombre;
+		setId(id);
+		setNombre(nombre);
 	}
 
 	public Long getId() {
