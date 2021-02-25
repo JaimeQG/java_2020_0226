@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/uf1465loginusuario">
+	<Resource type="javax.sql.DataSource" auth="Container"
+		name="jdbc/uf1465login" driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/uf1465login?serverTimezone=UTC" username="uf1465login"
+		password="uf1465login" maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+		validationQuery="SELECT 1 FROM dual" />
+</Context>
