@@ -37,6 +37,17 @@ public class LoginServlet extends HttpServlet {
 
 		Usuario usuario = dao.obtenerPorEmail(email);
 
+		if (usuario == null) {
+			request.setAttribute("mensaje", "El usuario o la contraseña son incorrectos");
+			request.setAttribute("nivel", "danger");
+
+			request.setAttribute("email", email);
+
+			doGet(request, response);
+		}
+
+		LOG.info(usuario.toString());
+
 		String hash = Password.obtenerHash(password);
 
 		String longitud = String.valueOf(hash.length());
@@ -47,6 +58,8 @@ public class LoginServlet extends HttpServlet {
 
 		if (hash.equals(usuario.getPassword())) {
 			request.getSession().setAttribute("usuario", usuario);
+
+			LOG.info("request.getContextPath() " + request.getContextPath());
 
 			if ("ADMIN".equals(usuario.getRol().getNombre())) {
 				response.sendRedirect(request.getContextPath() + "/admin/usuarios");

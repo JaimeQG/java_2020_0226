@@ -19,11 +19,11 @@ public class Uf1466csvApplication {
 	public static void main(String[] args) {
 		// SpringApplication.run(Uf1466csvApplication.class, args);
 
-		System.out.println("Nombre del fichero: " + nombreFichero());
+		System.out.println("Nombre del fichero: " + nombreFicheroCSV());
 
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(nombreFichero());
+			fw = new FileWriter(nombreFicheroCSV());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,10 +35,15 @@ public class Uf1466csvApplication {
 			e.printStackTrace();
 		}
 
+		Iterable<String> tablas = DAO.nombreTablas();
+		for (String tabla : tablas) {
+			System.out.println(tabla);
+		}
+
 		StringBuilder bld = new StringBuilder();
 		Iterable<String> columnas = DAO.nombreColumnas();
 		for (String columna : columnas) {
-			bld.append(columna + ";");
+			bld.append(columna.toUpperCase() + ";");
 		}
 		String cabecera = bld.toString();
 
@@ -60,7 +65,7 @@ public class Uf1466csvApplication {
 	 * 
 	 * @return String nombre del fichero: yyyy-MM-dd-HH-mm-ss.csv
 	 */
-	private static String nombreFichero() {
+	private static String nombreFicheroCSV() {
 
 		Date fechaActual = new Date();
 

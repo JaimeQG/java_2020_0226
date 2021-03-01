@@ -1,4 +1,4 @@
-package com.ipartek.formacion.spring.uf1466csv.accesodatos;
+package com.ipartek.formacion.uf1466.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,16 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.ipartek.formacion.spring.uf1466csv.entidades.Medicamento;
+import com.ipartek.formacion.uf1466.entidades.Cliente;
 
-public class MedicamentoDaoJdbc implements MedicamentoDao {
+public class ClienteDaoJdbc implements ClienteDao {
+
+	private static final String SQL_SELECT = "SELECT codigo, nombre, email, telefono, direccion, poblacion, codigopostal, identificador, activo FROM cliente";
+
 	private String url, usuario, password;
 
-	private static final MedicamentoDaoJdbc INSTANCIA = new MedicamentoDaoJdbc();
+	private static final ClienteDaoJdbc INSTANCIA = new ClienteDaoJdbc();
 
-	private static final String SQL_SELECT = "SELECT id, referencia, nombre, precio FROM medicamentos";
-
-	private MedicamentoDaoJdbc() {
+	private ClienteDaoJdbc() {
 		try {
 			// Accedemos al fichero de configuración 'jdbc.prpoerties' para obtener los
 			// datos de conexión con
@@ -39,7 +40,7 @@ public class MedicamentoDaoJdbc implements MedicamentoDao {
 		}
 	}
 
-	public static MedicamentoDaoJdbc getInstancia() {
+	public static ClienteDaoJdbc getInstancia() {
 		return INSTANCIA;
 	}
 
@@ -52,23 +53,24 @@ public class MedicamentoDaoJdbc implements MedicamentoDao {
 	}
 
 	@Override
-	public Iterable<Medicamento> obtenerTodos() {
+	public Iterable<Cliente> obtenerTodos() {
 		try (Connection con = getConexion();
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(SQL_SELECT)) {
-			ArrayList<Medicamento> medicamentos = new ArrayList<>();
-			Medicamento medicamento;
+			ArrayList<Cliente> clientes = new ArrayList<>();
+			Cliente cliente;
 
 			while (rs.next()) {
-				medicamento = new Medicamento(rs.getLong("id"), rs.getString("referencia"), rs.getString("nombre"),
-						rs.getBigDecimal("precio"));
+				cliente = new Cliente(rs.getInt("codigo"), rs.getString("nombre"), rs.getString("email"),
+						rs.getInt("telefono"), rs.getString("direccion"), rs.getString("poblacion"),
+						rs.getInt("codigopostal"), rs.getString("identificador"), rs.getBoolean("activo"));
 
-				medicamentos.add(medicamento);
+				clientes.add(cliente);
 			}
 
-			return medicamentos;
+			return clientes;
 		} catch (Exception e) {
-			throw new AccesoDatosException("Error al obtener todos los registros de medicamentos", e);
+			throw new AccesoDatosException("Error al obtener todos los registros de clientes", e);
 		}
 	}
 
@@ -79,18 +81,16 @@ public class MedicamentoDaoJdbc implements MedicamentoDao {
 				ResultSet rs = st.executeQuery(SQL_SELECT)) {
 
 			ResultSetMetaData rsmd = rs.getMetaData();
-			System.out.println("Total columnas: " + rsmd.getColumnCount());
 
 			ArrayList<String> columnas = new ArrayList<>();
 
 			for (int i = 1; i <= rsmd.getColumnCount(); i++) {
 				columnas.add(rsmd.getColumnName(i));
-				System.out.println(rsmd.getColumnTypeName(i));
 			}
 
 			return columnas;
 		} catch (Exception e) {
-			throw new AccesoDatosException("Error al obtener todos los registros de medicamentos", e);
+			throw new AccesoDatosException("Error al obtener todos los registros de clientes", e);
 		}
 	}
 

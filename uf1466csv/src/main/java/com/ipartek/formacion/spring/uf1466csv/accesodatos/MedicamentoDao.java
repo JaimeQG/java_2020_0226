@@ -7,7 +7,7 @@ public interface MedicamentoDao extends Dao<Medicamento> {
 		throw new AccesoDatosException("ESTE MÉTODO NO ESTÁ IMPLEMENTADO");
 	}
 
-	default void borrar(String referencia) {
+	default Iterable<String> nombreTablas() {
 		throw new AccesoDatosException("ESTE MÉTODO NO ESTÁ IMPLEMENTADO");
 	}
 }
