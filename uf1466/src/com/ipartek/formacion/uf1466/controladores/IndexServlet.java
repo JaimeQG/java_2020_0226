@@ -60,8 +60,10 @@ public class IndexServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		try {
-			archivoCSV = getServletContext().getRealPath(Miscelania.nombreFicheroCSV());
-
+			String file = Miscelania.nombreFicheroCSV();
+			archivoCSV = getServletContext().getRealPath(file);
+			// archivoCSV = getServletContext().getRealPath(Miscelania.nombreFicheroCSV());
+			LOG.info(file);
 			LOG.info(archivoCSV);
 
 			fw = new FileWriter(archivoCSV);
@@ -97,7 +99,15 @@ public class IndexServlet extends HttpServlet {
 					"El archivo CSV se ha exportado con exito en la siguiente ruta: " + archivoCSV);
 			request.setAttribute("alertaNivel", "success");
 
-			doGet(request, response);
+			try {
+				Thread.sleep(5000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			response.sendRedirect(request.getContextPath() + "/" + file);
+
+			// doGet(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
