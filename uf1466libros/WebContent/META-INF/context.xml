@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/libreria">
+	<Resource type="javax.sql.DataSource" auth="Container"
+		name="jdbc/libreria" driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/libreria?serverTimezone=UTC" username="usuario"
+		password="admin" maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+		validationQuery="SELECT 1 FROM dual" />
+</Context>
