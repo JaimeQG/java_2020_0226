@@ -4,7 +4,7 @@
 
 <c:if test="${libros != null}">
 <br />
-<h3>Resultado Búsqueda</h3>
+<h2>Resultado de la búsqueda ${criterio} = '${texto}'</h2>
 </c:if>
 <br />
 <!-- ${libros} -->
@@ -45,10 +45,11 @@
 			</c:choose>
 		</tbody>
 	</table>
+	<button type="submit" class="btn btn-primary" onclick="history.back()">Volver</button>
 </div>
 </c:when>
 	<c:otherwise>
-		<h3>No hay resultados para la búsqueda</h3>	
+		<h2>No hay resultados para la búsqueda ${criterio} = '${texto}'</h2>	
 		<br />
 		<div class="form-inline my-2 my-lg-0">
 			<button type="submit" class="btn btn-primary" onclick="history.back()">Volver</button>	

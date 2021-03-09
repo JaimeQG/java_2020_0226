@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-
-    <h3>Entrada de archivo</h3>
+<br />
+<h2>Entrada de archivo</h2>
     
 	<form action="" method="post" class="needs-validation" enctype="multipart/form-data">
 		<div class="form-group">

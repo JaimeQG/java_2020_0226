@@ -3,8 +3,8 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <br />
-<h1>Detalle de libro</h1>
-
+<h2>Detalle de libro</h2>
+<br />
 <!-- ${libro} -->
 
 <form action="" method="post" class="needs-validation" novalidate enctype="multipart/form-data">

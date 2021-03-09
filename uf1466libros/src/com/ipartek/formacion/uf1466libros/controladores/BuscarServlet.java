@@ -40,9 +40,11 @@ public class BuscarServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		String buscarPor = request.getParameter("criterio");
+		request.setAttribute("criterio", buscarPor);
 		LOGGER.info(buscarPor);
 
 		String textoBuscar = request.getParameter("texto");
+		request.setAttribute("texto", textoBuscar);
 		LOGGER.info(textoBuscar);
 
 		Libro libro = null;
@@ -64,7 +66,14 @@ public class BuscarServlet extends HttpServlet {
 		case TITULO:
 			LOGGER.info(TITULO);
 			libros = DAO.buscarPorTitulo(textoBuscar);
-			if (libros != null) {
+
+			int counter = 0;
+			for (Libro l : libros) {
+				counter++;
+			}
+			LOGGER.info(String.valueOf(counter));
+
+			if (counter > 0) {
 				LOGGER.info(libros.toString());
 				request.setAttribute("libros", libros);
 			}
@@ -75,7 +84,6 @@ public class BuscarServlet extends HttpServlet {
 		}
 
 		// 5. Redirigir a otra vista
-
 		request.getRequestDispatcher("/WEB-INF/vistas/resultadoBusqueda.jsp").forward(request, response);
 
 	}

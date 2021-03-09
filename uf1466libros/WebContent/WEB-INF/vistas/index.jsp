@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <br />
-<h3>Listado de Libros</h3>
+<h2>Listado de Libros</h2>
 <br />
 
 <form action="buscar" method="post" class="form-inline my-2 my-lg-0">

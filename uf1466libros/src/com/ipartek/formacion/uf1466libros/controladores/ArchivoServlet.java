@@ -125,6 +125,12 @@ public class ArchivoServlet extends HttpServlet {
 		request.setAttribute("alertaTexto", "Restore de la BB.DD hecho correctamente");
 		request.setAttribute("alertaNivel", "success");
 
+		try {
+			Thread.sleep(4000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		request.getRequestDispatcher("/libros").forward(request, response);
 	}
 

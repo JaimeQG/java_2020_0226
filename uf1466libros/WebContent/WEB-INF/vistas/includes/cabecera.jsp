@@ -50,7 +50,7 @@
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item active"><a class="nav-link" href="restore">Restore BB.DD.</a>
+						<li class="nav-item active"><a class="nav-link" href="restore">Restaurar BB.DD.</a>
 						</li>
 					</c:otherwise>
 				</c:choose>

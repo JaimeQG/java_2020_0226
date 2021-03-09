@@ -17,7 +17,7 @@ import com.ipartek.formacion.uf1466libros.entidades.Libro;
 public class LibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger LOG = Logger.getLogger(LibrosServlet.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(LibrosServlet.class.getName());
 
 	private static final LibroDao DAO = LibroDaoJdbc.getInstancia();
 
@@ -34,7 +34,7 @@ public class LibroServlet extends HttpServlet {
 
 		if (id != null) {
 			Libro libro = DAO.obtenerPorId(Long.parseLong(id));
-			LOG.info(libro.toString());
+			LOGGER.info(libro.toString());
 
 			// 4. Generar modelo para la vista
 
