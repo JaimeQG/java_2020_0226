@@ -16,7 +16,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
-<title>UF1465 Ejercicio 3</title>
+<title>UF1466 Ejercicio 1</title>
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="js/jquery-3.5.1.min.js"></script>
@@ -37,14 +37,14 @@
 	</nav>
 
 	<c:if test="${alertaTexto != null}">
-			<div class="alert alert-${alertaNivel} alert-dismissible fade show"
+		<div class="alert alert-${alertaNivel} alert-dismissible fade show"
 				role="alert">
 				${alertaTexto}
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-		</c:if>
+		</div>
+	</c:if>
 
 	<main class="container">

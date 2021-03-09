@@ -6,17 +6,17 @@
 <h3>Listado de Clientes</h3>
 
 <div class="table-responsive">
-	<table class="table table-striped table-bordered table-hover">
+	<table class="table table-striped table-bordered table-hover table-sm">
 		<caption>Listado de clientes</caption>
 		<thead class="thead-dark">
 			<tr>
-				<th scope="col">Codigo</th>
+				<th scope="col">Código</th>
 				<th scope="col">Nombre</th>
 				<th scope="col">Email</th>
 				<th scope="col">Teléfono</th>
 				<th scope="col">Dirección</th>
 				<th scope="col">Población</th>
-				<th scope="col">Código Postal</th>
+				<th scope="col">C.Postal</th>
 				<th scope="col">Identificador</th>
 				<th scope="col">Activo</th>
 			</tr>
