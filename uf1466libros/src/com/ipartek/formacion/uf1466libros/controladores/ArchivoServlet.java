@@ -107,6 +107,12 @@ public class ArchivoServlet extends HttpServlet {
 				leido = fis.read(buffer);
 			}
 
+			int processComplete = p.waitFor();
+
+			if (processComplete == 0) {
+				System.out.println("Restore BBDD hecho");
+			}
+
 			os.flush();
 			os.close();
 			fis.close();
