@@ -19,6 +19,8 @@ public class ClienteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher(Config.PATH_VISTAS + "cliente.jsp").forward(request, response);
+		// request.getRequestDispatcher(Config.PATH_VISTAS +
+		// "login.jsp").forward(request, response);
 	}
 
 	@Override

@@ -4,6 +4,7 @@
 
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
+<br />
 <form action="cliente" method="post">
 	<div class="form-group row">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>

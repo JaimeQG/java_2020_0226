@@ -25,7 +25,8 @@ public class AddCarritoServlet extends HttpServlet {
 
 		Producto producto = Config.carritoNegocio.productoPorId(Long.parseLong(id));
 
-		Carrito carrito = (Carrito) session.getAttribute("carrito");
+		Carrito carrito = (Carrito) session.getAttribute("carrito"); // SesionListener crea el carrito cada vez que
+																		// iniciamos sesión
 
 		carrito.addProducto(producto, 1);
 
