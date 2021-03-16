@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Representa el servlet para mostrar en pantalla la factura de la compra
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @WebServlet("/factura")
 public class FacturaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

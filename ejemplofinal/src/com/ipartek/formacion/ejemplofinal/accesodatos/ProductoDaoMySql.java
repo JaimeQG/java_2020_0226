@@ -11,11 +11,26 @@ import java.util.Set;
 import com.ipartek.formacion.ejemplofinal.entidades.Departamento;
 import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
+/**
+ * Implementación con jdbc/mySql del DAO para el objeto Producto
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ *
+ */
 public class ProductoDaoMySql implements Dao<Producto> {
 	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.descripcion AS descripcion, url_imagen, precio, descuento, unidad_medida, precio_unidad_medida, cantidad, activo, d.id AS d_id, d.nombre AS d_nombre, d.descripcion AS d_descripcion  \r\n"
 			+ "FROM productos p\r\n" + "JOIN departamentos d ON p.departamentos_id = d.id";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id = ?";
 
+	/**
+	 * lista de objetos Producto
+	 * 
+	 * @return todos los Productos, si no existe ninguno {@code Set<T>} vacio no
+	 *         null
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD.
+	 * 
+	 */
 	@Override
 	public Set<Producto> obtenerTodos() {
 		try (Connection con = Config.dataSource.getConnection();
@@ -37,6 +52,13 @@ public class ProductoDaoMySql implements Dao<Producto> {
 		}
 	}
 
+	/**
+	 * Recupera el detalle de un Producto
+	 * 
+	 * @param id identificador
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return Producto con sus datos o null si no encuentra por su id
+	 */
 	@Override
 	public Producto obtenerPorId(Long id) {
 		try (Connection con = Config.dataSource.getConnection();

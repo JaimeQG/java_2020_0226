@@ -8,10 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Representa el producto del supermercado.
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Producto implements Serializable {
+	/**
+	 * Necesario para los elementos Serializables
+	 */
 	private static final long serialVersionUID = -1067728694838158604L;
 
 	private Long id;

@@ -16,6 +16,14 @@ class FacturaDaoMySql implements DaoFactura {
 	private static final String SQL_INSERT_DETALLE = "INSERT INTO facturas_has_productos (facturas_id, productos_id, cantidad) VALUES (?,?,?)";
 	private static final String SQL_CODIGO = "SELECT MAX(codigo) FROM supermercado.facturas WHERE codigo LIKE CONCAT(?, '____')";
 
+	/**
+	 * Crea una nueva Factura y cuando es guardado se le asigan un nuevo id
+	 * 
+	 * @param Factura con los datos a guardar
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return Factura con su id actualizado en la llama a la función privada
+	 *         insertarImpl(Factura factura, Connection con)
+	 */
 	@Override
 	public Factura insertar(Factura factura) {
 		try (Connection con = Config.dataSource.getConnection()) {
@@ -71,6 +79,14 @@ class FacturaDaoMySql implements DaoFactura {
 		}
 	}
 
+	/**
+	 * Obtiene el último código de factura de la tabla facturas de la BB.DD.
+	 * supermercado
+	 * 
+	 * @param
+	 * @throws Exception si falla la conexión con la BB.DD
+	 * @return Último código de la tabla facturas
+	 */
 	@Override
 	public String obtenerUltimoCodigo() {
 		try (Connection con = Config.dataSource.getConnection();

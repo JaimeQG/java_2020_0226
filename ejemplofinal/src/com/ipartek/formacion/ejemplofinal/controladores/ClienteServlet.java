@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.ejemplofinal.entidades.Cliente;
 
+/**
+ * Representa el servlet para guardar/crear un nuevo objeto Cliente en la BB.DD
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @WebServlet("/cliente")
 public class ClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

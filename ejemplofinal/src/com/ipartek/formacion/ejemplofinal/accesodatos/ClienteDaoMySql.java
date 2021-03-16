@@ -14,6 +14,13 @@ class ClienteDaoMySql implements Dao<Cliente> {
 
 	private static final String SQL_INSERT = "INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?, ?, ?, ?)";
 
+	/**
+	 * Crea un nuevo Cliente y cuando es guardado se le asigan una nueva id
+	 * 
+	 * @param Cliente con los datos a guardar
+	 * @throws Exception si el número de registros devueltos es != a 1
+	 * @return Cliente con su id actualizado
+	 */
 	@Override
 	public Cliente insertar(Cliente cliente) {
 		try (Connection con = Config.dataSource.getConnection();

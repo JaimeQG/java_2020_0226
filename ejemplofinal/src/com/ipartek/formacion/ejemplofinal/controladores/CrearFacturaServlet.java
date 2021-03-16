@@ -14,7 +14,14 @@ import com.ipartek.formacion.ejemplofinal.entidades.Cliente;
 import com.ipartek.formacion.ejemplofinal.entidades.DetalleCarrito;
 import com.ipartek.formacion.ejemplofinal.entidades.DetalleFactura;
 import com.ipartek.formacion.ejemplofinal.entidades.Factura;
+import com.ipartek.formacion.ejemplofinal.entidades.Usuario;
 
+/**
+ * Representa el servlet para generar la factura con la compra del supermercado
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @WebServlet("/crear-factura")
 public class CrearFacturaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,8 +29,16 @@ public class CrearFacturaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO: Utilizar sesión y comprobar si existe o no el cliente
-		Cliente cliente = (Cliente) request.getAttribute("cliente");
+		Cliente cliente;
+
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+		if (usuario != null && usuario.getCliente() != null) {
+			cliente = usuario.getCliente();
+		} else {
+			cliente = (Cliente) request.getAttribute("cliente");
+		}
+
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 
 		Factura factura = new Factura();

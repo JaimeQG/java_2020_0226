@@ -12,6 +12,13 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.ejemplofinal.entidades.Carrito;
 import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
+/**
+ * Representa el servlet que añade productos al carrito de la compra de los
+ * usuarios de la aplicación
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @WebServlet("/add-carrito")
 public class AddCarritoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
