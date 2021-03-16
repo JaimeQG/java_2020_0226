@@ -5,7 +5,7 @@
 <br />
 <h2>Migración de BB.DD.</h2>
 <br />
-<form action="ddbb" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+<form action="ddbb" method="post" class="needs-validation" novalidate>
 	
 	<!-- Base de datos -->
 	<div class="form-group row">

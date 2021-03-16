@@ -13,7 +13,6 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,6 @@ import com.ipartek.formacion.uf1466db.accesodatos.BasedatosJdbc;
 import com.ipartek.formacion.uf1466db.configuracion.Config;
 
 @WebServlet("/ddbb")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class DatabaseServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
