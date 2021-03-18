@@ -14,7 +14,7 @@ public interface UsuarioNegocio {
 	 * Valida el si el usuario que entra en la aplicación es además cliente
 	 * 
 	 * @param usuario usuario que ha hecho login en el supermercado
-	 * @return true, si es cliente. False, si no lo es
+	 * @return true, si es cliente. false, si no lo es
 	 */
 	boolean validarUsuario(Usuario usuario);
 }
