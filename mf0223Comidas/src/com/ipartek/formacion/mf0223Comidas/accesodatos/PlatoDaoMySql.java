@@ -12,12 +12,12 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
 public class PlatoDaoMySql implements Dao<Plato> {
-	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.calorias AS calorias, c.id AS c_id, c.nombre AS c_nombre, o.id AS o_id, o.nombre AS o_nombre\r\n"
+	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.preparacion AS preparacion, p.tiempo AS tiempo, p.calorias AS calorias, c.id AS c_id, c.nombre AS c_nombre, o.id AS o_id, o.nombre AS o_nombre\r\n"
 			+ "FROM platos p \r\n" + "JOIN categorias c ON p.categorias_id = c.id\r\n"
 			+ "JOIN origen o ON p.origen_id = o.id";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id = ?";
-	private static final String SQL_INSERT = "INSERT INTO platos (nombre, calorias, categorias_id, origen_id) VALUES (?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE platos SET nombre=?, calorias=?, categorias_id=?, origen_id=? WHERE id=?";
+	private static final String SQL_INSERT = "INSERT INTO platos (nombre, preparacion, tiempo, calorias, categorias_id, origen_id) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE platos SET nombre=?, preparacion=?, tiempo=?, calorias=?, categorias_id=?, origen_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM platos AS p WHERE p.id = ?";
 
 	@Override
@@ -35,7 +35,8 @@ public class PlatoDaoMySql implements Dao<Plato> {
 				categoria = new Categoria(rs.getLong("c_id"), rs.getString("c_nombre"));
 				origen = new Origen(rs.getLong("o_id"), rs.getString("o_nombre"));
 
-				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getInt("calorias"), categoria, origen);
+				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getString("preparacion"),
+						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen);
 
 				platos.add(plato);
 			}
@@ -63,7 +64,8 @@ public class PlatoDaoMySql implements Dao<Plato> {
 				categoria = new Categoria(rs.getLong("c_id"), rs.getString("c_nombre"));
 				origen = new Origen(rs.getLong("o_id"), rs.getString("o_nombre"));
 
-				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getInt("calorias"), categoria, origen);
+				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getString("preparacion"),
+						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen);
 			}
 
 			return plato;
@@ -78,9 +80,11 @@ public class PlatoDaoMySql implements Dao<Plato> {
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
 
 			pst.setString(1, plato.getNombre());
-			pst.setInt(2, plato.getCalorias());
-			pst.setLong(3, plato.getCategoria().getId());
-			pst.setLong(4, plato.getOrigen().getId());
+			pst.setString(2, plato.getPreparacion());
+			pst.setInt(3, plato.getTiempo());
+			pst.setInt(4, plato.getCalorias());
+			pst.setLong(5, plato.getCategoria().getId());
+			pst.setLong(6, plato.getOrigen().getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new AccesoDatosException("No se ha insertado el plato: " + plato);
@@ -100,11 +104,13 @@ public class PlatoDaoMySql implements Dao<Plato> {
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);) {
 
 			pst.setString(1, plato.getNombre());
-			pst.setInt(2, plato.getCalorias());
-			pst.setLong(3, plato.getCategoria().getId());
-			pst.setLong(4, plato.getOrigen().getId());
+			pst.setString(2, plato.getPreparacion());
+			pst.setInt(3, plato.getTiempo());
+			pst.setInt(4, plato.getCalorias());
+			pst.setLong(5, plato.getCategoria().getId());
+			pst.setLong(6, plato.getOrigen().getId());
 
-			pst.setLong(5, plato.getId());
+			pst.setLong(7, plato.getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new AccesoDatosException("No se ha modificado el plato: " + plato);

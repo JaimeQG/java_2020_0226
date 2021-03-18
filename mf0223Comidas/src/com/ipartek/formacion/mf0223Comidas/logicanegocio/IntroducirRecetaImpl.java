@@ -7,7 +7,7 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 import lombok.extern.java.Log;
 
 @Log
-public class PlatoNegocioImpl implements PlatoNegocio {
+public class IntroducirRecetaImpl implements IntroducirReceta {
 
 	private Dao<Plato> daoPlato = DaoFabrica.getDaoPlato();
 

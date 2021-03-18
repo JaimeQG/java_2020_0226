@@ -11,6 +11,8 @@ public class Plato {
 
 	private Long id;
 	private String nombre;
+	private String preparacion;
+	private int tiempo;
 	private int calorias;
 
 	private Categoria categoria;
@@ -21,23 +23,30 @@ public class Plato {
 
 	private String errorId;
 	private String errorNombre;
+	private String errorPreparacion;
+	private String errorTiempo;
 	private String errorCalorias;
 
 	private String errorCategoria;
 	private String errorOrigen;
 
-	public Plato(Long id, String nombre, int calorias, Categoria categoria, Origen origen) {
+	public Plato(Long id, String nombre, String preparacion, int tiempo, int calorias, Categoria categoria,
+			Origen origen) {
 		setId(id);
 		setNombre(nombre);
+		setPreparacion(preparacion);
+		setTiempo(tiempo);
 		setCalorias(calorias);
 		setCategoria(categoria);
 		setOrigen(origen);
 	}
 
-	public Plato(String id, String nombre, String calorias) {
+	public Plato(String id, String nombre, String preparacion, String tiempo, String calorias) {
 
 		setId(id);
 		setNombre(nombre);
+		setPreparacion(preparacion);
+		setTiempo(tiempo);
 		setCalorias(calorias);
 	}
 
@@ -82,6 +91,40 @@ public class Plato {
 	public void setErrorNombre(String errorNombre) {
 		correcto = false;
 		this.errorNombre = errorNombre;
+	}
+
+	// Preparación
+	public void setPreparacion(String preparacion) {
+		if (preparacion == null || preparacion.trim().length() == 0) {
+			setErrorPreparacion("La preparación del plato es obligatoria");
+		}
+		this.preparacion = preparacion;
+	}
+
+	public void setErrorPreparacion(String errorPreparacion) {
+		correcto = false;
+		this.errorPreparacion = errorPreparacion;
+	}
+
+	// Tiempo
+	private void setTiempo(String tiempo) {
+		try {
+			setTiempo(Integer.parseInt(tiempo));
+		} catch (Exception e) {
+			setErrorTiempo("El tiempo de elaboración del plato deben ser un número");
+		}
+	}
+
+	public void setTiempo(Integer tiempo) {
+		if (tiempo == null || tiempo < 0) {
+			setErrorTiempo("El tiempo debe ser mayor o igual a cero");
+		}
+		this.tiempo = tiempo;
+	}
+
+	public void setErrorTiempo(String errorTiempo) {
+		correcto = false;
+		this.errorTiempo = errorTiempo;
 	}
 
 	// Calorias

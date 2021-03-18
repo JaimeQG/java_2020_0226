@@ -6,6 +6,10 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class Config {
+
+	static final String usuario = "usuario";
+	static final String password = "admin";
+
 	private static final String JDBC_COMIDAS = "jdbc/comidas";
 
 	private Config() {

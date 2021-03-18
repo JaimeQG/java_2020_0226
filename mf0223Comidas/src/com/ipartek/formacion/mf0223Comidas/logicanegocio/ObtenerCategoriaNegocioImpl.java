@@ -7,7 +7,7 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Categoria;
 import lombok.extern.java.Log;
 
 @Log
-public class CategoriaNegocioImpl implements CategoriaNegocio {
+public class ObtenerCategoriaNegocioImpl implements ObtenerCategoriaNegocio {
 
 	private Dao<Categoria> daoCategoria = DaoFabrica.getDaoCategoria();
 

@@ -2,7 +2,7 @@ package com.ipartek.formacion.mf0223Comidas.logicanegocio;
 
 import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
-public interface PlatoNegocio {
+public interface IntroducirReceta {
 	Iterable<Plato> listadoPlatos();
 
 	Plato platoPorId(Long id);

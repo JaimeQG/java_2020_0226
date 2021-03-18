@@ -13,6 +13,8 @@ public class DaoFabrica {
 	private static final Dao<Categoria> daoCategoria = new CategoriaDaoMySql();
 	private static final Dao<Origen> daoOrigen = new OrigenDaoMySql();
 
+	private static final Database dataBase = new DatabaseMySql();
+
 	public static Dao<Plato> getDaoPlato() {
 		return daoPlato;
 	}
@@ -23,5 +25,9 @@ public class DaoFabrica {
 
 	public static Dao<Origen> getDaoOrigen() {
 		return daoOrigen;
+	}
+
+	public static Database getDatabase() {
+		return dataBase;
 	}
 }

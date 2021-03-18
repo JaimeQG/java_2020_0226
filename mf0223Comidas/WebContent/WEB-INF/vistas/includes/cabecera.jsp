@@ -44,6 +44,9 @@
 			</ul>
 		</div>
 		
+		<ul class="navbar-nav">
+			<li class="nav-item active"><a class="nav-link" href="restore">Restaurar BB.DD.</a></li>
+		</ul>	
 	</nav>
 
 	<c:if test="${alerta != null}">

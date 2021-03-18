@@ -56,13 +56,16 @@ public class AddPlatoServlet extends HttpServlet {
 		// 1. Recoger información de la petición
 		String sId = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
+		String preparacion = request.getParameter("preparacion");
+		log.info(preparacion);
+		String tiempo = request.getParameter("tiempo");
 		String calorias = request.getParameter("calorias");
 
 		String categoriaId = request.getParameter("categoria"); // Categoría
 		String origenId = request.getParameter("origen"); // Origen
 
 		// 2. Poner información dentro de un modelo
-		Plato plato = new Plato(sId, nombre, calorias);
+		Plato plato = new Plato(sId, nombre, preparacion, tiempo, calorias);
 
 		Long categoriaIdLong = Long.parseLong(categoriaId);
 		Long origenIdLong = Long.parseLong(origenId);

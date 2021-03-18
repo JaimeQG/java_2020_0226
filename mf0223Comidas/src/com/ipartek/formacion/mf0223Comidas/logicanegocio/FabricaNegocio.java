@@ -5,20 +5,26 @@ public class FabricaNegocio {
 	private FabricaNegocio() {
 	}
 
-	private static final PlatoNegocio platoNegocio = new PlatoNegocioImpl();
-	private static final CategoriaNegocio categoriaNegocio = new CategoriaNegocioImpl();
-	private static final OrigenNegocio origenNegocio = new OrigenNegocioImpl();
+	private static final IntroducirReceta platoNegocio = new IntroducirRecetaImpl();
+	private static final ObtenerCategoriaNegocio categoriaNegocio = new ObtenerCategoriaNegocioImpl();
+	private static final ObtenerOrigenNegocio origenNegocio = new ObtenerOrigenNegocioImpl();
 
-	public static PlatoNegocio getPlatoNegocio() {
+	private static final RestaurarDatabase dataBase = new RestaurarDatabaseImpl();
+
+	public static IntroducirReceta getPlatoNegocio() {
 		return platoNegocio;
 	}
 
-	public static CategoriaNegocio getCategoriaNegocio() {
+	public static ObtenerCategoriaNegocio getCategoriaNegocio() {
 		return categoriaNegocio;
 	}
 
-	public static OrigenNegocio getOrigenNegocio() {
+	public static ObtenerOrigenNegocio getOrigenNegocio() {
 		return origenNegocio;
+	}
+
+	public static RestaurarDatabase getDataBase() {
+		return dataBase;
 	}
 
 }

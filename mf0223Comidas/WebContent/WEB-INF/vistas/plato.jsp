@@ -26,10 +26,35 @@
 		<div class="col">
 			<input type="text" class="form-control ${plato.errorNombre != null ? 'is-invalid' : '' }" id="nombre" name="nombre" value="${plato.nombre}"
 				required minlength="3" pattern="\p{Lu}\p{Ll}{2}[\p{Ll} ]*"
-				placeholder="Debe introducir un nombre con solo letras y mayúscula la primera. Mínimo tres caracteres.">
+				placeholder="Debe introducir un nombre con solo letras y mayúscula la primera letra">
 			<div class="valid-feedback">Nombre correcto</div>
 			<div class="invalid-feedback">${plato.errorNombre != null ? plato.errorNombre : 'Debe introducir un nombre con
 				como mínimo 3 letras, y solo letras y mayúscula la primera'}</div>
+		</div>
+	</div>
+	
+	<!-- Preparación -->
+	<div class="form-group row">
+		<label for="preparacion" class="col-md-4 col-lg-3 col-form-label">Elaboración</label>
+		<div class="col">
+			<textarea class="form-control ${plato.errorPreparacion != null ? 'is-invalid' : '' }" id="preparacion" name="preparacion" 
+				required placeholder="Elaboración del plato ..." rows="4" maxlength="1000" >${plato.preparacion}</textarea>
+			<div class="valid-feedback">Elaboración correcta</div>
+			<div class="invalid-feedback">${plato.errorPreparacion != null ? plato.errorPreparacion : 'La preparación del plato es obligatoria'}</div>	
+		</div>
+	</div>
+	
+	<!-- Tiempo -->
+	<div class="form-group row">
+		<label for="tiempo" class="col-md-4 col-lg-3 col-form-label">Tiempo de elaboración</label>
+		<div class="input-group col">		
+			<input type="number" class="form-control ${plato.errorCalorias != null ? 'is-invalid' : '' }" id="tiempo" value="${plato.tiempo}"
+				name="tiempo" required min="0" placeholder="Debe introducir un número mayor que 0"/>
+			<div class="input-group-append">
+				<span class="input-group-text rounded-right">minutos</span>
+			</div>
+			<div class="valid-feedback">Tiempo correcto</div>
+			<div class="invalid-feedback">${plato.errorTiempo != null ? plato.errorTiempo : 'El tiempo de elaboración debe ser mayor o igual a cero' }</div>
 		</div>
 	</div>
 	

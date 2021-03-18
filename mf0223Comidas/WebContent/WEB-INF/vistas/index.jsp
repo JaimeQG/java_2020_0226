@@ -12,6 +12,7 @@
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">Nombre</th>
+				<th scope="col">Tiempo (min.)</th>
 				<th scope="col">Calorías</th>
 				<th scope="col">Categoría</th>
 				<th scope="col">Origen</th>
@@ -23,8 +24,8 @@
 				<tr>
 					<th scope="row">${plato.id}</th>
 					<td>${plato.nombre}</td>
+					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.tiempo}" /></td>
 					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.calorias}" /></td>
-					<!--  <td>${plato.calorias}</td>-->
 					<td>${plato.categoria.nombre}</td>
 					<td>${plato.origen.nombre}</td>	
 					<td>

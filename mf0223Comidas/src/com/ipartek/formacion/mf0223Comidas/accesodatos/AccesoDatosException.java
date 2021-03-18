@@ -2,6 +2,8 @@ package com.ipartek.formacion.mf0223Comidas.accesodatos;
 
 public class AccesoDatosException extends RuntimeException {
 
+	private static final long serialVersionUID = -1699889400014234381L;
+
 	public AccesoDatosException() {
 		super();
 	}
@@ -22,7 +24,5 @@ public class AccesoDatosException extends RuntimeException {
 	public AccesoDatosException(Throwable cause) {
 		super(cause);
 	}
-
-	private static final long serialVersionUID = -1699889400014234381L;
 
 }

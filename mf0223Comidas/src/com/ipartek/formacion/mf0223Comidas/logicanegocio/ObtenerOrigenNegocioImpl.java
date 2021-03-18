@@ -7,7 +7,7 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 import lombok.extern.java.Log;
 
 @Log
-public class OrigenNegocioImpl implements OrigenNegocio {
+public class ObtenerOrigenNegocioImpl implements ObtenerOrigenNegocio {
 
 	private Dao<Origen> daoOrigen = DaoFabrica.getDaoOrigen();
 
