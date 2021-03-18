@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<br />
 <h2>${accion}plato</h2>
 <br />
 <!-- ${plato} -->

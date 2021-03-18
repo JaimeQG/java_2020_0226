@@ -18,7 +18,7 @@ import lombok.extern.java.Log;
 @Log
 @WebServlet("/restore")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
-public class RestoreServlet extends HttpServlet {
+public class RestoreDataBaseServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 

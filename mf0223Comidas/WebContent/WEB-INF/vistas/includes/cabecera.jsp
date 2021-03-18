@@ -13,10 +13,16 @@
 
 <base href="${pageContext.servletContext.contextPath}/" />
 
+<!-- favicon -->
 <link rel="shortcut icon" href="favicon.ico">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- FontAwesome -->
+<link rel="stylesheet" href="css/all.min.css">
+<!-- Datatables -->
+<link rel="stylesheet" href="css/dataTables.bootstrap4.min.css" />
+
 
 <title>MF0223_3 Comidas</title>
 
@@ -60,4 +66,4 @@
 		</div>
 	</c:if>
 
-<main class="container">
+<main class="container-fluid pt-3">

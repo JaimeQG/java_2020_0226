@@ -8,8 +8,11 @@ import lombok.extern.java.Log;
 @Log
 public class DatabaseMySql implements Database {
 
-	static final String MYSQL_RESTORE = "mysql -u " + Config.usuario + " -p" + Config.password + " ";
-	private Process runProcess = null;
+	private static final String MYSQL_RESTORE = "mysql -u " + Config.USUARIO + " -p" + Config.PASSWORD + " ";
+
+	private static final String MENSAJE_ERROR = "Error al ejecutar el restore de la BB.DD.";
+
+	Process runProcess = null;
 
 	@Override
 	public void restoreDatabase(String fileRestore) {
@@ -20,7 +23,7 @@ public class DatabaseMySql implements Database {
 		try {
 			runProcess = Runtime.getRuntime().exec(MYSQL_RESTORE);
 		} catch (Exception e) {
-			throw new AccesoDatosException("Error al ejecutar el restore de la BB.DD.", e);
+			throw new AccesoDatosException(MENSAJE_ERROR, e);
 		}
 
 		try (OutputStream os = runProcess.getOutputStream(); FileInputStream fis = new FileInputStream(fileRestore)) {
@@ -33,7 +36,7 @@ public class DatabaseMySql implements Database {
 
 			os.flush();
 		} catch (Exception e) {
-			throw new AccesoDatosException("Error al ejecutar el restore de la BB.DD.", e);
+			throw new AccesoDatosException(MENSAJE_ERROR, e);
 		}
 
 		try {
@@ -45,7 +48,7 @@ public class DatabaseMySql implements Database {
 			}
 		} catch (Exception e) {
 			Thread.currentThread().interrupt();
-			throw new AccesoDatosException("Error al ejecutar el restore de la BB.DD.", e);
+			throw new AccesoDatosException(MENSAJE_ERROR, e);
 		}
 	}
 }

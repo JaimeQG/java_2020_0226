@@ -2,17 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<br />
 <h3>Mantenimiento de Platos</h3>
-<br />
-<div class="table-responsive">
+
+<div class="table-responsive mb-3">
 	<table class="table table-striped table-bordered table-hover table-sm">
 		<caption>Listado de platos</caption>
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">Nombre</th>
-				<th scope="col">Tiempo (min.)</th>
+				<th scope="col">Tiempo</th>
 				<th scope="col">Calorías</th>
 				<th scope="col">Categoría</th>
 				<th scope="col">Origen</th>
@@ -24,8 +23,9 @@
 				<tr>
 					<th scope="row">${plato.id}</th>
 					<td>${plato.nombre}</td>
-					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.tiempo}" /></td>
-					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.calorias}" /></td>
+					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.tiempo}" /> 
+					min.</td>
+					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.calorias}" /> cal.</td>
 					<td>${plato.categoria.nombre}</td>
 					<td>${plato.origen.nombre}</td>	
 					<td>
@@ -41,7 +41,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
+	<br />
 	<a class="btn btn-primary" href="add-plato">Añadir plato</a>
 	
 </div>
