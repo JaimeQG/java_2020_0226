@@ -12,6 +12,13 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Dificultad;
 import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
+/**
+ * Implementación con jdbc/mySql del DAO para el objeto Plato
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ *
+ */
 public class PlatoDaoMySql implements Dao<Plato> {
 	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.preparacion AS preparacion, p.tiempo AS tiempo, p.calorias AS calorias, c.id AS c_id, c.nombre AS c_nombre, o.id AS o_id, o.nombre AS o_nombre, d.id AS d_id, d.nombre AS d_nombre \r\n"
 			+ "FROM platos p \r\n" + "JOIN categorias c ON p.categorias_id = c.id \r\n"
@@ -21,6 +28,13 @@ public class PlatoDaoMySql implements Dao<Plato> {
 	private static final String SQL_UPDATE = "UPDATE platos SET nombre=?, preparacion=?, tiempo=?, calorias=?, categorias_id=?, origen_id=?, dificultad_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM platos AS p WHERE p.id = ?";
 
+	/**
+	 * lista de objetos Plato
+	 * 
+	 * @return todos los Platos, si no existe ninguno vacio no null
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD.
+	 * 
+	 */
 	@Override
 	public Iterable<Plato> obtenerTodos() {
 		try (Connection con = Config.dataSource.getConnection();
@@ -50,6 +64,13 @@ public class PlatoDaoMySql implements Dao<Plato> {
 		}
 	}
 
+	/**
+	 * Recupera el detalle de un Plato
+	 * 
+	 * @param id identificador
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return Plato con sus datos o null si no encuentra por su id
+	 */
 	@Override
 	public Plato obtenerPorId(Long id) {
 		try (Connection con = Config.dataSource.getConnection();
@@ -79,6 +100,14 @@ public class PlatoDaoMySql implements Dao<Plato> {
 		}
 	}
 
+	/**
+	 * Crea un nuevo Plato y cuando es guardado se le asigan un nuevo id
+	 * 
+	 * @param plato con los datos a guardar
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return objeto Plato con su id actualizado
+	 * 
+	 */
 	@Override
 	public Plato insertar(Plato plato) {
 		try (Connection con = Config.dataSource.getConnection();
@@ -104,6 +133,14 @@ public class PlatoDaoMySql implements Dao<Plato> {
 		}
 	}
 
+	/**
+	 * Modifica un Plato
+	 * 
+	 * @param plato con los datos modificados a guardar
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return objeto Plato con sus datos modificados
+	 * 
+	 */
 	@Override
 	public Plato modificar(Plato plato) {
 		try (Connection con = Config.dataSource.getConnection();
@@ -131,6 +168,13 @@ public class PlatoDaoMySql implements Dao<Plato> {
 		}
 	}
 
+	/**
+	 * Borrar un Plato
+	 * 
+	 * @param id del Plato
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * 
+	 */
 	@Override
 	public void borrar(Long id) {
 		try (Connection con = Config.dataSource.getConnection();

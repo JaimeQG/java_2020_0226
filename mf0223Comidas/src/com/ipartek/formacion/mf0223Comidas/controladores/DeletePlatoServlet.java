@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Representa el servlet que borra platos de la Base de Datos
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @WebServlet("/delete-plato")
 public class DeletePlatoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

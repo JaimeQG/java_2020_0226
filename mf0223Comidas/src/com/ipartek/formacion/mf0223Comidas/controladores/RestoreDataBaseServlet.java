@@ -15,6 +15,13 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Alerta;
 
 import lombok.extern.java.Log;
 
+/**
+ * Muestra la JSP archivo.jsp para seleccionar el archivo (.sql) con el archivo
+ * con las sentencias de MySql para hacer el restore de la BB.DD
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @Log
 @WebServlet("/restore")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)

@@ -16,6 +16,12 @@ import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
 import lombok.extern.java.Log;
 
+/**
+ * Representa el servlet que añade platos a la Base de Datos
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @Log
 @WebServlet("/add-plato")
 public class AddPlatoServlet extends HttpServlet {

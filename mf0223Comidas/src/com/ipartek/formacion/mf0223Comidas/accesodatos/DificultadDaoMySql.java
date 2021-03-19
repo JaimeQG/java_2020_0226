@@ -8,10 +8,24 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.mf0223Comidas.entidades.Dificultad;
 
+/**
+ * Implementación con jdbc/mySql del DAO para el objeto Dificultad
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ *
+ */
 public class DificultadDaoMySql implements Dao<Dificultad> {
 	private static final String SQL_SELECT = "SELECT d.id AS d_id, d.nombre AS d_nombre FROM dificultad AS d ORDER BY d.id ASC";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE d.id = ?";
 
+	/**
+	 * lista de objetos Dificultad
+	 * 
+	 * @return todos los objetos Dificultad, si no existe ninguno vacio no null
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD.
+	 * 
+	 */
 	@Override
 	public Iterable<Dificultad> obtenerTodos() {
 		try (Connection con = Config.dataSource.getConnection();
@@ -33,6 +47,13 @@ public class DificultadDaoMySql implements Dao<Dificultad> {
 		}
 	}
 
+	/**
+	 * Recupera el detalle de un objeto Dificultad
+	 * 
+	 * @param id identificador
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return Objeto Dificultad con sus datos o null si no encuentra por su id
+	 */
 	@Override
 	public Dificultad obtenerPorId(Long id) {
 		try (Connection con = Config.dataSource.getConnection();

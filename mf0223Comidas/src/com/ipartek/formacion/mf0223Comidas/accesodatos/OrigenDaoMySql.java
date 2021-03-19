@@ -8,10 +8,24 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 
+/**
+ * Implementación con jdbc/mySql del DAO para el objeto Origen
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ *
+ */
 public class OrigenDaoMySql implements Dao<Origen> {
 	private static final String SQL_SELECT = "SELECT o.id AS o_id, o.nombre AS o_nombre FROM origen AS o ORDER BY o.nombre ASC";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE o.id = ?";
 
+	/**
+	 * lista de objetos Origen
+	 * 
+	 * @return todos los Orígenes, si no existe ninguno vacio no null
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD.
+	 * 
+	 */
 	@Override
 	public Iterable<Origen> obtenerTodos() {
 		try (Connection con = Config.dataSource.getConnection();
@@ -33,6 +47,13 @@ public class OrigenDaoMySql implements Dao<Origen> {
 		}
 	}
 
+	/**
+	 * Recupera el detalle de un Plato
+	 * 
+	 * @param id identificador
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * @return Origen con sus datos o null si no encuentra por su id
+	 */
 	@Override
 	public Origen obtenerPorId(Long id) {
 		try (Connection con = Config.dataSource.getConnection();

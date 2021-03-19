@@ -5,6 +5,13 @@ import java.io.OutputStream;
 
 import lombok.extern.java.Log;
 
+/**
+ * Implementación con mySql de operaciones con la Base de Datos
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ *
+ */
 @Log
 public class DatabaseMySql implements Database {
 
@@ -14,6 +21,14 @@ public class DatabaseMySql implements Database {
 
 	Process runProcess = null;
 
+	/**
+	 * Restaura una BB.DD de MySql
+	 * 
+	 * @param fileRestore fichero con las sentencias MySql para hacer el restore de
+	 *                    la BB.DD.
+	 * @throws AccesoDatosException si falla la conexión con la BB.DD
+	 * 
+	 */
 	@Override
 	public void restoreDatabase(String fileRestore) {
 		int processComplete;

@@ -6,6 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase Alerta para sacar en pantalla alert de Bootstrap (nivel y mensaje):
+ * 
+ * @author Jaime Quintana
+ * @version 1.0
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
