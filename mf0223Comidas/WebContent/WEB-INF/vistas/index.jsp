@@ -11,6 +11,7 @@
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">Nombre</th>
+				<th scope="col">Dificultad</th>
 				<th scope="col">Tiempo</th>
 				<th scope="col">Calorías</th>
 				<th scope="col">Categoría</th>
@@ -23,6 +24,25 @@
 				<tr>
 					<th scope="row">${plato.id}</th>
 					<td>${plato.nombre}</td>
+					<td class="text-center">
+					<c:choose>
+							<c:when test="${plato.dificultad.id == 1}">
+								<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+							</c:when>
+							<c:when test="${plato.dificultad.id == 2}">
+								<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+							</c:when>
+							<c:when test="${plato.dificultad.id == 3}">
+								<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+							</c:when>
+							<c:when test="${plato.dificultad.id == 4}">
+								<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="fa fa-star"></i><i class="fa fa-star-o"><i class="fa fa-star-o"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+							</c:otherwise>
+					</c:choose></td>
+					
 					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.tiempo}" /> 
 					min.</td>
 					<td class="text-right"><fmt:formatNumber type ="number" value ="${plato.calorias}" /> cal.</td>

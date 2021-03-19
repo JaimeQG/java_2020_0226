@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.mf0223Comidas.entidades.Alerta;
 import com.ipartek.formacion.mf0223Comidas.entidades.Categoria;
+import com.ipartek.formacion.mf0223Comidas.entidades.Dificultad;
 import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
@@ -42,6 +43,7 @@ public class AddPlatoServlet extends HttpServlet {
 
 		request.setAttribute("categorias", Config.categoriaNegocio.listadoCategorias());
 		request.setAttribute("origenes", Config.origenNegocio.listadoOrigenes());
+		request.setAttribute("dificultades", Config.dificultadNegocio.listadoDificultades());
 
 		// 5. Redirigir a otra vista
 		request.getRequestDispatcher(Config.PATH_VISTAS + "plato.jsp").forward(request, response);
@@ -61,15 +63,18 @@ public class AddPlatoServlet extends HttpServlet {
 		String tiempo = request.getParameter("tiempo");
 		String calorias = request.getParameter("calorias");
 
+		String dificultadId = request.getParameter("dificultad"); // Dificultad
 		String categoriaId = request.getParameter("categoria"); // Categoría
 		String origenId = request.getParameter("origen"); // Origen
 
 		// 2. Poner información dentro de un modelo
 		Plato plato = new Plato(sId, nombre, preparacion, tiempo, calorias);
 
+		Long dificultadIdLong = Long.parseLong(dificultadId);
 		Long categoriaIdLong = Long.parseLong(categoriaId);
 		Long origenIdLong = Long.parseLong(origenId);
 
+		plato.setDificultad(new Dificultad(dificultadIdLong, null));
 		plato.setCategoria(new Categoria(categoriaIdLong, null));
 		plato.setOrigen(new Origen(origenIdLong, null));
 
@@ -87,6 +92,7 @@ public class AddPlatoServlet extends HttpServlet {
 
 			request.setAttribute("categorias", Config.categoriaNegocio.listadoCategorias());
 			request.setAttribute("origenes", Config.origenNegocio.listadoOrigenes());
+			request.setAttribute("dificultades", Config.dificultadNegocio.listadoDificultades());
 
 			// 5. Redirigir a otra vista
 			request.getRequestDispatcher(Config.PATH_VISTAS + "plato.jsp").forward(request, response);

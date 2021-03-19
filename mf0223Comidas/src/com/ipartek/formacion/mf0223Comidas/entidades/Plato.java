@@ -19,11 +19,14 @@ public class Plato {
 
 	private Origen origen;
 
+	private Dificultad dificultad;
+
 	private boolean correcto = true;
 
 	private String errorId;
 	private String errorNombre;
 	private String errorPreparacion;
+	private String errorDificultad;
 	private String errorTiempo;
 	private String errorCalorias;
 
@@ -31,7 +34,7 @@ public class Plato {
 	private String errorOrigen;
 
 	public Plato(Long id, String nombre, String preparacion, int tiempo, int calorias, Categoria categoria,
-			Origen origen) {
+			Origen origen, Dificultad dificultad) {
 		setId(id);
 		setNombre(nombre);
 		setPreparacion(preparacion);
@@ -39,6 +42,7 @@ public class Plato {
 		setCalorias(calorias);
 		setCategoria(categoria);
 		setOrigen(origen);
+		setDificultad(dificultad);
 	}
 
 	public Plato(String id, String nombre, String preparacion, String tiempo, String calorias) {
@@ -104,6 +108,19 @@ public class Plato {
 	public void setErrorPreparacion(String errorPreparacion) {
 		correcto = false;
 		this.errorPreparacion = errorPreparacion;
+	}
+
+	// Dificultad
+	public void setDificultad(Dificultad dificultad) {
+		if (dificultad == null || dificultad.getId() == null || dificultad.getId() == 0L) {
+			setErrorDificultad("La dificultad del plato es obligatoria");
+		}
+		this.dificultad = dificultad;
+	}
+
+	public void setErrorDificultad(String errorDificultad) {
+		correcto = false;
+		this.errorDificultad = errorDificultad;
 	}
 
 	// Tiempo

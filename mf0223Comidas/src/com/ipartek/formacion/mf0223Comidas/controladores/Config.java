@@ -3,6 +3,7 @@ package com.ipartek.formacion.mf0223Comidas.controladores;
 import com.ipartek.formacion.mf0223Comidas.logicanegocio.FabricaNegocio;
 import com.ipartek.formacion.mf0223Comidas.logicanegocio.IntroducirReceta;
 import com.ipartek.formacion.mf0223Comidas.logicanegocio.ObtenerCategoriaNegocio;
+import com.ipartek.formacion.mf0223Comidas.logicanegocio.ObtenerDificultadNegocio;
 import com.ipartek.formacion.mf0223Comidas.logicanegocio.ObtenerOrigenNegocio;
 import com.ipartek.formacion.mf0223Comidas.logicanegocio.RestaurarDatabase;
 
@@ -18,5 +19,7 @@ class Config {
 	static final IntroducirReceta platoNegocio = FabricaNegocio.getPlatoNegocio();
 	static final ObtenerCategoriaNegocio categoriaNegocio = FabricaNegocio.getCategoriaNegocio();
 	static final ObtenerOrigenNegocio origenNegocio = FabricaNegocio.getOrigenNegocio();
+	static final ObtenerDificultadNegocio dificultadNegocio = FabricaNegocio.getDificultadNegocio();
+
 	static final RestaurarDatabase dataBase = FabricaNegocio.getDataBase();
 }

@@ -8,16 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.mf0223Comidas.entidades.Categoria;
+import com.ipartek.formacion.mf0223Comidas.entidades.Dificultad;
 import com.ipartek.formacion.mf0223Comidas.entidades.Origen;
 import com.ipartek.formacion.mf0223Comidas.entidades.Plato;
 
 public class PlatoDaoMySql implements Dao<Plato> {
-	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.preparacion AS preparacion, p.tiempo AS tiempo, p.calorias AS calorias, c.id AS c_id, c.nombre AS c_nombre, o.id AS o_id, o.nombre AS o_nombre\r\n"
-			+ "FROM platos p \r\n" + "JOIN categorias c ON p.categorias_id = c.id\r\n"
-			+ "JOIN origen o ON p.origen_id = o.id";
+	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.preparacion AS preparacion, p.tiempo AS tiempo, p.calorias AS calorias, c.id AS c_id, c.nombre AS c_nombre, o.id AS o_id, o.nombre AS o_nombre, d.id AS d_id, d.nombre AS d_nombre \r\n"
+			+ "FROM platos p \r\n" + "JOIN categorias c ON p.categorias_id = c.id \r\n"
+			+ "JOIN origen o ON p.origen_id = o.id \r\n" + "JOIN dificultad d ON p.dificultad_id = d.id ";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id = ?";
-	private static final String SQL_INSERT = "INSERT INTO platos (nombre, preparacion, tiempo, calorias, categorias_id, origen_id) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE platos SET nombre=?, preparacion=?, tiempo=?, calorias=?, categorias_id=?, origen_id=? WHERE id=?";
+	private static final String SQL_INSERT = "INSERT INTO platos (nombre, preparacion, tiempo, calorias, categorias_id, origen_id, dificultad_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE platos SET nombre=?, preparacion=?, tiempo=?, calorias=?, categorias_id=?, origen_id=?, dificultad_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM platos AS p WHERE p.id = ?";
 
 	@Override
@@ -30,13 +31,15 @@ public class PlatoDaoMySql implements Dao<Plato> {
 			Plato plato;
 			Categoria categoria;
 			Origen origen;
+			Dificultad dificultad;
 
 			while (rs.next()) {
 				categoria = new Categoria(rs.getLong("c_id"), rs.getString("c_nombre"));
 				origen = new Origen(rs.getLong("o_id"), rs.getString("o_nombre"));
+				dificultad = new Dificultad(rs.getLong("d_id"), rs.getString("d_nombre"));
 
 				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getString("preparacion"),
-						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen);
+						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen, dificultad);
 
 				platos.add(plato);
 			}
@@ -59,13 +62,15 @@ public class PlatoDaoMySql implements Dao<Plato> {
 			Plato plato = null;
 			Categoria categoria;
 			Origen origen;
+			Dificultad dificultad;
 
 			if (rs.next()) {
 				categoria = new Categoria(rs.getLong("c_id"), rs.getString("c_nombre"));
 				origen = new Origen(rs.getLong("o_id"), rs.getString("o_nombre"));
+				dificultad = new Dificultad(rs.getLong("d_id"), rs.getString("d_nombre"));
 
 				plato = new Plato(rs.getLong("id"), rs.getString("nombre"), rs.getString("preparacion"),
-						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen);
+						rs.getInt("tiempo"), rs.getInt("calorias"), categoria, origen, dificultad);
 			}
 
 			return plato;
@@ -85,6 +90,7 @@ public class PlatoDaoMySql implements Dao<Plato> {
 			pst.setInt(4, plato.getCalorias());
 			pst.setLong(5, plato.getCategoria().getId());
 			pst.setLong(6, plato.getOrigen().getId());
+			pst.setLong(7, plato.getDificultad().getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new AccesoDatosException("No se ha insertado el plato: " + plato);
@@ -109,8 +115,9 @@ public class PlatoDaoMySql implements Dao<Plato> {
 			pst.setInt(4, plato.getCalorias());
 			pst.setLong(5, plato.getCategoria().getId());
 			pst.setLong(6, plato.getOrigen().getId());
+			pst.setLong(7, plato.getDificultad().getId());
 
-			pst.setLong(7, plato.getId());
+			pst.setLong(8, plato.getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new AccesoDatosException("No se ha modificado el plato: " + plato);

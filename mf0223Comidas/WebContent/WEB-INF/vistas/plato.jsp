@@ -37,9 +37,24 @@
 		<label for="preparacion" class="col-md-4 col-lg-3 col-form-label">Elaboración</label>
 		<div class="col">
 			<textarea class="form-control ${plato.errorPreparacion != null ? 'is-invalid' : '' }" id="preparacion" name="preparacion" 
-				required placeholder="Elaboración del plato ..." rows="4" maxlength="1000" >${plato.preparacion}</textarea>
+				required placeholder="Elaboración del plato ..." rows="3" maxlength="1000" >${plato.preparacion}</textarea>
 			<div class="valid-feedback">Elaboración correcta</div>
 			<div class="invalid-feedback">${plato.errorPreparacion != null ? plato.errorPreparacion : 'La preparación del plato es obligatoria'}</div>	
+		</div>
+	</div>
+	
+	<!-- Dificultad -->
+	<div class="form-group row">
+		<label for="dificultad" class="col-md-4 col-lg-3 col-form-label">Dificultad de elaboración</label>
+		<div class="col">
+			<select class="form-control custom-select ${plato.errorDificultad != null ? 'is-invalid' : '' }" required id="dificultad" name="dificultad">
+				<option value="0">Introduzca la dificultad ...</option>					
+				<c:forEach items="${dificultades}" var="dificultad">
+					<option value="${dificultad.id}" ${dificultad.id == plato.dificultad.id ? 'selected' : ''}>${dificultad.nombre}</option>
+				</c:forEach>
+			</select>
+			<div class="valid-feedback">Dificultad de elaboración del plato correcta</div>
+			<div class="invalid-feedback">${plato.errorDificultad != null ? plato.errorDificultad : 'Es obligatorio introducir la dificultad de elaboración del plato'}</div>
 		</div>
 	</div>
 	

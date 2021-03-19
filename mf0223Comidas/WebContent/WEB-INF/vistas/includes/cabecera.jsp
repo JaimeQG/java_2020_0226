@@ -19,7 +19,9 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <!-- FontAwesome -->
-<link rel="stylesheet" href="css/all.min.css">
+<!--  font awesome -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="css/all.min.css"> -->
 <!-- Datatables -->
 <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css" />
 
